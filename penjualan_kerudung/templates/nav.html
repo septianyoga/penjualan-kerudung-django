@@ -1,20 +1,19 @@
 {% load static %}
 <!--sidebar wrapper -->
 <div class="sidebar-wrapper" data-simplebar="true">
-    <div class="sidebar-header">
+    <div class="sidebar-header mt-2">
         <div>
-            <img src="{% static 'assets/images/logo-icon.png' %}" class="logo-icon" alt="logo icon">
+            <img src="{% static 'assets/images/logo.png' %}" class="logo-icon" alt="logo icon">
         </div>
         <div>
-            <h4 class="logo-text">Rocker</h4>
-        </div>
-        <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+            <h6 class="logo-text">RABBANI</h6>
+            <small class="text-white" style="margin-left: 10px;">Subang</small>
         </div>
     </div>
     <!--navigation-->
     <ul class="metismenu" id="menu">
         <li>
-            <a href="index.html">
+            <a href="{% url 'dashboard' %}">
                 <div class="parent-icon"><i class='bx bx-home-circle'></i>
                 </div>
                 <div class="menu-title">Dashboard</div>
@@ -22,31 +21,33 @@
         </li>
         <li class="menu-label">Kelola</li>
         <li>
-            <a href="charts-chartjs.html">
+            <a href="{% url 'kelola_data' %}">
+                <div class="parent-icon">
+                    <i class="bx bx-data"></i>
+                </div>
+                <div class="menu-title">Kelola Data</div>
+            </a>
+            
+        </li>
+        <li>
+            <a href="{% url 'preprocessing' %}">
                 <div class="parent-icon"><i class="bx bx-data"></i>
                 </div>
-                <div class="menu-title">Dataset</div>
+                <div class="menu-title">PreProcessing</div>
             </a>
         </li>
         <li>
-            <a href="charts-chartjs.html">
+            <a href="{% url 'models' %}">
                 <div class="parent-icon"><i class="bx bx-data"></i>
                 </div>
-                <div class="menu-title">Initial Process</div>
+                <div class="menu-title">Model</div>
             </a>
         </li>
         <li>
-            <a href="charts-chartjs.html">
+            <a href="{% url 'performance' %}">
                 <div class="parent-icon"><i class="bx bx-data"></i>
                 </div>
                 <div class="menu-title">Performance</div>
-            </a>
-        </li>
-        <li>
-            <a href="charts-chartjs.html">
-                <div class="parent-icon"><i class="bx bx-data"></i>
-                </div>
-                <div class="menu-title">Prediksi</div>
             </a>
         </li>
         <!-- <li>
@@ -92,13 +93,13 @@
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{% static 'assets/images/avatars/avatar-2.png' %}" class="user-img" alt="user avatar">
                     <div class="user-info ps-3">
-                        <p class="user-name mb-0">Pauline Seitz</p>
-                        <p class="designattion mb-0">Web Designer</p>
+                        <p class="user-name mb-0">Admin</p>
+                        <!-- <p class="designattion mb-0">Web Designer</p> -->
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
-                    </li>
+                    <!-- <li><a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
+                    </li> -->
                     <li><a class="dropdown-item" href="{% url 'logout' %}"><i
                                 class='bx bx-log-out-circle'></i><span>Logout</span></a>
                     </li>

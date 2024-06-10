@@ -17,12 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from landingpage.views import landing_page
-from dashboard.views import dashboard_view
+from dashboard.views import dashboard_view, kelola_data, preprocessing, models, performance
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', landing_page, name='landing_page'),
     path('predict/', include('prediction.urls')),
     path('login/', include('authentication.urls')),
-    path('dashboard', dashboard_view, name='dashboard')
+    path('dashboard', dashboard_view, name='dashboard'),
+    path('kelola-data', kelola_data, name='kelola_data'),
+    path('preprocessing', preprocessing, name='preprocessing'),
+    path('models', models, name='models'),
+    path('performance', performance, name='performance'),
+
 ]
