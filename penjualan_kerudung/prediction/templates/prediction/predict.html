@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prediksi Permainan</title>
+</head>
+
+<body>
+    <h1>Prediksi Permainan</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="outlook">Outlook:</label>
+        <select id="outlook" name="outlook">
+            <option value="sunny">Sunny</option>
+            <option value="cloudy">Cloudy</option>
+            <option value="rainy">Rainy</option>
+        </select><br>
+        <label for="temperature">Temperature:</label>
+        <select id="temperature" name="temperature">
+            <option value="hot">Hot</option>
+            <option value="mild">Mild</option>
+            <option value="cool">Cool</option>
+            <option value="col">Col</option>
+            <option value="co">Co</option>
+        </select><br>
+        <label for="humidity">Humidity:</label>
+        <select id="humidity" name="humidity">
+            <option value="high">High</option>
+            <option value="normal">Normal</option>
+        </select><br>
+        <label for="windy">Windy:</label>
+        <select id="windy" name="windy">
+            <option value="FALSE">False</option>
+            <option value="TRUE">True</option>
+        </select><br><br>
+        <button type="submit">Prediksi</button>
+    </form>
+    {% if prediction %}
+    <h2>Hasil Prediksi: {{ prediction }}</h2>
+    <img src="/static/tree_visualization.png" alt="Visualisasi Pohon Keputusan">
+    {% endif %}
+</body>
+
+</html>
