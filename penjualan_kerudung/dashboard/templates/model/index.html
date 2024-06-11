@@ -1,54 +1,100 @@
-{% extends 'main.html' %}
-{% block content %}
-{% load static %}
-
+{% extends 'main.html' %} {% block content %} {% load static %}
 
 <div class="page-content">
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title">Model</h5>
+      <h5 class="card-title">Model (Prediksi)</h5>
     </div>
     <div class="card-body">
-      <div class="">
-        <h5 class="card-title mb-3">Tabel Model</h5>
-        <table id="example" class="table table-striped table-bordered" style="width:100%">
-          <thead class="text-center">
-            <tr class="table-success">
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody class="text-center">
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="form">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="fileInput" class="form-label">Brand</label>
+                <select class="form-select" name="brand" aria-label="select">
+                  <option selected disabled>-- Pilih Brand --</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="fileInput" class="form-label">Jenis</label>
+                <select class="form-select" name="jenis" aria-label="select">
+                  <option selected disabled>-- Pilih Jenis --</option>
+                  <option value="t-shirt">T-Shirt</option>
+                  <option value="dress">Dress</option>
+                  <option value="pants">Pants</option>
+                  <option value="skirt">Skirt</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="fileInput" class="form-label">Bahan</label>
+                <select class="form-select" name="bahan" aria-label="select">
+                  <option selected disabled>-- Pilih Bahan --</option>
+                  <option value="cotton">Cotton</option>
+                  <option value="silk">Silk</option>
+                  <option value="denim">Denim</option>
+                  <option value="polyester">Polyester</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="fileInput" class="form-label">Harga</label>
+                <select class="form-select" name="harga" aria-label="select">
+                  <option selected disabled>-- Pilih Harga --</option>
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="fileInput" class="form-label">Ukuran Kain</label>
+                <select
+                  class="form-select"
+                  name="ukuran_kain"
+                  aria-label="select"
+                >
+                  <option selected disabled>-- Pilih Ukuran Kain --</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Prediksi</button>
+        </form>
       </div>
+    </div>
+  </div>
+  <div class="card mt-2">
+    <div class="card-header">
+      <h5 class="card-title">Pohon Keputusan</h5>
+    </div>
+    <div class="card-body">
+      {% if prediction %}
+      <h2>Hasil Prediksi: <span class="text-capitalize">{{ prediction }}</span></h2>
+      <img
+        src="/static/tree_visualization.png"
+        alt="Visualisasi Pohon Keputusan"
+      />
+      {% endif %}
     </div>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    $('#example').DataTable();
+  document.addEventListener("DOMContentLoaded", function () {
+    $("#example").DataTable();
   });
 </script>
 {% endblock %}

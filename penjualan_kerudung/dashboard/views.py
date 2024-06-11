@@ -6,6 +6,11 @@ from django.contrib import messages
 import pandas as pd
 from django.http import HttpResponse
 
+
+from .ml_models import train_model, predict_sales, plot_tree
+
+
+
 # Create your views here.
 
 
@@ -133,9 +138,21 @@ def processing_data_v(request):
     return redirect('preprocessing')
 
 
+model, feature_columns = train_model()
+plot_tree(model, feature_columns, model.classes_)
 @login_required
 def models(request):
-    return render(request, 'model/index.html')
+    prediction = None
+    if request.method == 'POST':
+        brand = request.POST.get('brand')
+        jenis = request.POST.get('jenis')
+        bahan = request.POST.get('bahan')
+        harga = request.POST.get('harga') == 'TRUE'
+        ukuran_kain = request.POST.get('ukuran_kain')
+        input_data = {'brand': brand, 'jenis': jenis,
+                    'bahan': bahan, 'harga': harga, 'ukuran_kain': ukuran_kain}
+        prediction = predict_sales(model, feature_columns, input_data)
+    return render(request, 'model/index.html', {'prediction': prediction})
 
 
 @login_required
