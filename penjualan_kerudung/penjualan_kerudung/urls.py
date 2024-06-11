@@ -21,9 +21,9 @@ from dashboard.views import dashboard_view, kelola_data, preprocessing, models, 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', landing_page, name='landing_page'),
+    # path('', landing_page, name='landing_page'),
     path('predict/', include('prediction.urls')),
-    path('login/', include('authentication.urls')),
+    path('', include('authentication.urls')),
     path('dashboard', dashboard_view, name='dashboard'),
     path('kelola-data', kelola_data, name='kelola_data'),
     path('preprocessing', preprocessing, name='preprocessing'),

@@ -27,12 +27,12 @@
             {% for processing in processings %}
             <tr>
               <th scope="row">{{ forloop.counter }}</th>
-              <td>{{ processing.brand }}</td>
-              <td>{{ processing.jenis }}</td>
-              <td>{{ processing.bahan }}</td>
-              <td>{{ processing.harga }}</td>
-              <td>{{ processing.ukuran_kain }}</td>
-              <td>{{ processing.terjual }}</td>
+              <td class="text-capitalize">{{ processing.brand }}</td>
+              <td class="text-capitalize">{{ processing.jenis }}</td>
+              <td class="text-capitalize">{{ processing.bahan }}</td>
+              <td class="text-capitalize">{{ processing.harga }}</td>
+              <td class="text-capitalize">{{ processing.ukuran_kain }}</td>
+              <td class="text-capitalize">{{ processing.terjual }}</td>
             </tr>
             {% endfor %}
         </table>

@@ -143,16 +143,17 @@ plot_tree(model, feature_columns, model.classes_)
 @login_required
 def models(request):
     prediction = None
+    data = ProcessingDataLatih.objects.all()
     if request.method == 'POST':
         brand = request.POST.get('brand')
         jenis = request.POST.get('jenis')
         bahan = request.POST.get('bahan')
-        harga = request.POST.get('harga') == 'TRUE'
+        harga = request.POST.get('harga')
         ukuran_kain = request.POST.get('ukuran_kain')
         input_data = {'brand': brand, 'jenis': jenis,
                     'bahan': bahan, 'harga': harga, 'ukuran_kain': ukuran_kain}
         prediction = predict_sales(model, feature_columns, input_data)
-    return render(request, 'model/index.html', {'prediction': prediction})
+    return render(request, 'model/index.html', {'prediction': prediction, 'data': data})
 
 
 @login_required

@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from .ml_model import train_model, predict_sales, plot_tree
 
-model, feature_columns = train_model()
-plot_tree(model, feature_columns, model.classes_)
-
 
 def predict_view(request):
+
+    model, feature_columns = train_model()
+    plot_tree(model, feature_columns, model.classes_)
     prediction = None
     if request.method == 'POST':
         outlook = request.POST.get('outlook')
