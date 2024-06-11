@@ -9,23 +9,33 @@
       <h5 class="card-title">Kelola Data</h5>
     </div>
     <div class="card-body">
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} d-flex align-items-center" role="alert">
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        <div>{{ message }}</div>
+      </div>
+      {% endfor %}
+      {% endif %}
       <div class="form">
-        <form>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Import Excel</label>
+                <label for="fileInput" class="form-label">Import Excel</label>
                 <p>
                   <small>
                     Silahkan download file template.
-                    <a href="{% static 'path/to/template.xlsx' %}">Download Template Excel</a>
+                    <a href="{% static 'excel/penjualan_kerudung.xlsx' %}">Download Template Excel</a>
                   </small>
                 </p>
-                <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                <input type="file" class="form-control" id="fileInput" name="file" aria-describedby="fileHelp" />
               </div>
             </div>
             <div class="col"></div>
           </div>
+          <small>*Melakukan import data, akan mengkosongkan semua data penjualan terlebih dahulu.</small> <br>
           <button type="submit" class="btn btn-primary">Kirim</button>
         </form>
       </div>
@@ -36,30 +46,28 @@
           <thead class="text-center">
             <tr class="table-success">
               <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Action</th>
+              <th>Tanggal</th>
+              <th>Brand</th>
+              <th>Jenis</th>
+              <th>Bahan</th>
+              <th>Harga</th>
+              <th>Ukuran Kain</th>
+              <th>Terjual</th>
             </tr>
           </thead>
           <tbody class="text-center">
+            {% for penjualan in penjualans %}
             <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ penjualan.tanggal }}</td>
+              <td>{{ penjualan.brand }}</td>
+              <td>{{ penjualan.jenis }}</td>
+              <td>{{ penjualan.bahan }}</td>
+              <td>{{ penjualan.harga }}</td>
+              <td>{{ penjualan.ukuran_kain }}</td>
+              <td>{{ penjualan.terjual }}</td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
