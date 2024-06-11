@@ -15,31 +15,26 @@
           <thead class="text-center">
             <tr class="table-success">
               <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Action</th>
+              <th>Brand</th>
+              <th>Jenis</th>
+              <th>Bahan</th>
+              <th>Harga</th>
+              <th>Ukuran Kain</th>
+              <th>Terjual</th>
             </tr>
           </thead>
           <tbody class="text-center">
+            {% for processing in processings %}
             <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ processing.brand }}</td>
+              <td>{{ processing.jenis }}</td>
+              <td>{{ processing.bahan }}</td>
+              <td>{{ processing.harga }}</td>
+              <td>{{ processing.ukuran_kain }}</td>
+              <td>{{ processing.terjual }}</td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
+            {% endfor %}
         </table>
       </div>
     </div>
