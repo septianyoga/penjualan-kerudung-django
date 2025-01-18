@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
-from prediction.models import PenjualanKerudung, ProcessingDataLatih
+from .models import PenjualanKerudung, ProcessingDataLatih
 from django.contrib import messages
 import pandas as pd
 from django.http import HttpResponse
