@@ -12,35 +12,30 @@
       <div class="">
         <h5 class="card-title mb-3">Tabel Performance</h5>
         <table id="example" class="table table-striped table-bordered" style="width:100%">
-          <thead class="text-center">
-            <tr class="table-success">
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
           <tbody class="text-center">
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
+              <tr>
+                  <td>Akurasi</td>
+                  <td>{{ performance.accuracy|floatformat:2 }}</td>
+              </tr>
+              <tr>
+                  <td>Presisi</td>
+                  <td>{{ performance.precision|floatformat:2 }}</td>
+              </tr>
+              <tr>
+                  <td>Recall</td>
+                  <td>{{ performance.recall|floatformat:2 }}</td>
+              </tr>
+              <tr>
+                  <td>F1 Score</td>
+                  <td>{{ performance.f1_score|floatformat:2 }}</td>
+              </tr>
+              {% comment %} <tr>
+                  <td>Waktu Pelatihan</td>
+                  <td>{{ performance.created_at }}</td>
+              </tr> {% endcomment %}
           </tbody>
-        </table>
+      </table>
+      
       </div>
     </div>
   </div>

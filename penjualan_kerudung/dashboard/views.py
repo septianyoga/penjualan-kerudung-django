@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
-from .models import PenjualanKerudung, ProcessingDataLatih
+from .models import PenjualanKerudung, ProcessingDataLatih, ModelPerformance
 from django.contrib import messages
 import pandas as pd
 from django.http import HttpResponse
@@ -149,12 +149,12 @@ def models(request):
         bahan = request.POST.get('bahan')
         harga = request.POST.get('harga')
         ukuran_kain = request.POST.get('ukuran_kain')
-        input_data = {'brand': brand, 'jenis': jenis,
-                      'bahan': bahan, 'harga': harga, 'ukuran_kain': ukuran_kain}
+        input_data = {'brand': brand, 'jenis': jenis, 'bahan': bahan, 'harga': harga, 'ukuran_kain': ukuran_kain}
         prediction = predict_sales(model, feature_columns, input_data)
     return render(request, 'model/index.html', {'prediction': prediction, 'data': data})
 
 
 @login_required
 def performance(request):
-    return render(request, 'performance/index.html')
+    performance = ModelPerformance.objects.last()
+    return render(request, 'performance/index.html',  {'performance': performance})

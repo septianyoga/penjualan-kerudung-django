@@ -23,3 +23,13 @@ class ProcessingDataLatih(models.Model):
 
     # def __str__(self):
     #     return f"{self.brand} - {self.jenis}"
+
+class ModelPerformance(models.Model):
+    accuracy = models.FloatField()
+    precision = models.FloatField()
+    recall = models.FloatField()
+    f1_score = models.FloatField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Performance on {self.created_at.strftime('%Y-%m-%d %H:%M:%S')}"

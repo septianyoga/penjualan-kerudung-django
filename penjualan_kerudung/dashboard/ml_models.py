@@ -1,41 +1,60 @@
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import tree
-from .models import ProcessingDataLatih
+from .models import ProcessingDataLatih, ModelPerformance
 import matplotlib.pyplot as plt
 import os
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
+from sklearn.model_selection import train_test_split
 
 # Fungsi untuk melatih model
 
 
-def train_model():
-    # Data baru dari gambar
-    # data = {
-    #     'brand': ['A', 'A', 'B', 'C', 'C', 'C', 'B', 'A', 'A', 'C', 'A', 'B', 'B', 'C'],
-    #     'jenis': ['t-shirt', 't-shirt', 'dress', 'pants', 'skirt', 'skirt', 'dress', 'pants', 't-shirt', 'pants', 't-shirt', 'dress', 't-shirt', 'skirt'],
-    #     'bahan': ['cotton', 'cotton', 'silk', 'denim', 'polyester', 'polyester', 'silk', 'denim', 'cotton', 'denim', 'cotton', 'silk', 'cotton', 'polyester'],
-    #     'harga': ['high', 'high', 'low', 'medium', 'medium', 'high', 'low', 'medium', 'medium', 'medium', 'low', 'medium', 'low', 'high'],
-    #     'ukuran_kain': ['S', 'S', 'M', 'M', 'L', 'L', 'XL', 'M', 'S', 'L', 'M', 'XL', 'L', 'M'],
-    #     'terjual': ['no', 'no', 'yes', 'yes', 'yes', 'yes', 'yes', 'yes', 'no', 'yes', 'yes', 'yes', 'yes', 'no']
-    # }
-    data = ProcessingDataLatih.objects.all().values('brand', 'jenis', 'bahan', 'harga', 'ukuran_kain', 'terjual')
 
+def train_model():
+    # Ambil data dari database
+    data = ProcessingDataLatih.objects.all().values('brand', 'jenis', 'bahan', 'harga', 'ukuran_kain', 'terjual')
     df = pd.DataFrame(data)
 
     # Encode categorical variables
-    df_encoded = pd.get_dummies(
-        df[['brand', 'jenis', 'bahan', 'harga', 'ukuran_kain']])
+    df_encoded = pd.get_dummies(df[['brand', 'jenis', 'bahan', 'harga', 'ukuran_kain']])
     X = df_encoded
     y = df['terjual']
 
-    # Training decision tree
+    # Bagi data menjadi training dan testing set
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Latih decision tree
     clf = DecisionTreeClassifier(criterion='entropy')
-    clf = clf.fit(X, y)
+    clf = clf.fit(X_train, y_train)
+
+    # Prediksi data testing
+    y_pred = clf.predict(X_test)
+
+    # Hitung metrik evaluasi
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred, average='weighted', zero_division=0)
+    recall = recall_score(y_test, y_pred, average='weighted')
+    f1 = f1_score(y_test, y_pred, average='weighted')
+
+    # Hapus data performa lama
+    ModelPerformance.objects.all().delete()
+
+    # Simpan metrik ke database
+    ModelPerformance.objects.create(
+        accuracy=accuracy,
+        precision=precision,
+        recall=recall,
+        f1_score=f1
+    )
+
+    # Cetak nilai metrik
+    print("Akurasi:", accuracy)
+    print("Presisi:", precision)
+    print("Recall:", recall)
+    print("F1 Score:", f1)
 
     return clf, X.columns
-
-# Fungsi untuk prediksi
-
 
 def predict_sales(model, feature_columns, input_data):
     df_input = pd.DataFrame([input_data])
