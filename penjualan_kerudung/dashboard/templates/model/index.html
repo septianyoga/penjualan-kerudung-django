@@ -78,16 +78,16 @@
       </div>
     </div>
   </div>
-  <div class="card mt-2">
+  <div class="card mt-2" >
     <div class="card-header">
       <h5 class="card-title">Pohon Keputusan</h5>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="overflow-x: auto;">
       {% if prediction %}
       <h2>Hasil Prediksi: <span class="text-capitalize">{{ prediction }}</span></h2>
       <img
-        src="/static/tree_visualization.png"
-        alt="Visualisasi Pohon Keputusan"
+        src="{% static "dashboard/tree_visualization.png" %}"
+        alt="Visualisasi Pohon Keputusan" style="width: 100%; height:auto;"
       />
       {% endif %}
     </div>
