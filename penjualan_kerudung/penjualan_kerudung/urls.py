@@ -15,15 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import path, include
 from landingpage.views import landing_page
 from dashboard.views import dashboard_view, kelola_data, preprocessing, models, performance, processing_data_v
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', landing_page, name='landing_page'),
-    path('', include('authentication.urls')),
-    path('dashboard', dashboard_view, name='dashboard'),
+    # path('', landing_page, name='landing_page'),
+    path('', lambda request: redirect('dashboard',
+         permanent=True), name='dashboard'),
+    path('login/', include('authentication.urls')),
+    path('dashboard/', dashboard_view, name='dashboard'),
     path('kelola-data', kelola_data, name='kelola_data'),
     path('preprocessing', preprocessing, name='preprocessing'),
     path('processing-data', processing_data_v, name='processing_data'),
