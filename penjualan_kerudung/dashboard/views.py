@@ -44,7 +44,6 @@ def kelola_data(request):
                     jenis=f"{row.get('Jenis')}",
                     bahan=f"{row.get('Bahan')}",
                     harga=f"{row.get('Harga')}",
-                    ukuran_kain=row.get('Ukuran Kain'),
                     terjual=row.get('Terjual')
                 )
 
@@ -82,11 +81,6 @@ def processing_data_v(request):
     harga_min = df['harga'].min()
     harga_mid = (harga_max + harga_min) / 2
 
-    # Hitung nilai tengah, tertinggi, dan terendah untuk ukuran kain
-    ukuran_kain_max = df['ukuran_kain'].max()
-    ukuran_kain_min = df['ukuran_kain'].min()
-    ukuran_kain_mid = (ukuran_kain_max + ukuran_kain_min) / 2
-
     # Hitung nilai tengah untuk terjual
     terjual_max = df['terjual'].max()
     terjual_min = df['terjual'].min()
@@ -98,15 +92,6 @@ def processing_data_v(request):
             return 'tinggi'
         elif harga <= harga_min:
             return 'rendah'
-        else:
-            return 'sedang'
-
-    # Fungsi untuk mengkategorikan ukuran kain
-    def categorize_ukuran_kain(ukuran_kain):
-        if ukuran_kain >= ukuran_kain_mid:
-            return 'besar'
-        elif ukuran_kain <= ukuran_kain_min:
-            return 'kecil'
         else:
             return 'sedang'
 
@@ -125,7 +110,6 @@ def processing_data_v(request):
             jenis=row['jenis'],
             bahan=row['bahan'],
             harga=categorize_harga(row['harga']),
-            ukuran_kain=categorize_ukuran_kain(row['ukuran_kain']),
             terjual=categorize_terjual(row['terjual']),
         ))
 
@@ -148,8 +132,8 @@ def models(request):
         jenis = request.POST.get('jenis')
         bahan = request.POST.get('bahan')
         harga = request.POST.get('harga')
-        ukuran_kain = request.POST.get('ukuran_kain')
-        input_data = {'brand': brand, 'jenis': jenis, 'bahan': bahan, 'harga': harga, 'ukuran_kain': ukuran_kain}
+        input_data = {'brand': brand, 'jenis': jenis,
+                      'bahan': bahan, 'harga': harga}
         prediction = predict_sales(model, feature_columns, input_data)
     return render(request, 'model/index.html', {'prediction': prediction, 'data': data})
 

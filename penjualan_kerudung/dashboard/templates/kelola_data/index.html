@@ -36,7 +36,7 @@
             <div class="col"></div>
           </div>
           <small>*Melakukan import data, akan mengkosongkan semua data penjualan terlebih dahulu.</small> <br>
-          <button type="submit" class="btn btn-primary">Kirim</button>
+          <button type="submit" class="btn btn-primary">Upload</button>
         </form>
       </div>
 
@@ -54,7 +54,6 @@
               <th>Jenis</th>
               <th>Bahan</th>
               <th>Harga</th>
-              <th>Ukuran Kain</th>
               <th>Terjual</th>
             </tr>
           </thead>
@@ -67,7 +66,6 @@
               <td>{{ penjualan.jenis }}</td>
               <td>{{ penjualan.bahan }}</td>
               <td>{{ penjualan.harga }}</td>
-              <td>{{ penjualan.ukuran_kain }}</td>
               <td>{{ penjualan.terjual }}</td>
             </tr>
             {% endfor %}

@@ -10,19 +10,21 @@ from sklearn.model_selection import train_test_split
 # Fungsi untuk melatih model
 
 
-
 def train_model():
     # Ambil data dari database
-    data = ProcessingDataLatih.objects.all().values('brand', 'jenis', 'bahan', 'harga', 'ukuran_kain', 'terjual')
+    data = ProcessingDataLatih.objects.all().values(
+        'brand', 'jenis', 'bahan', 'harga', 'terjual')
     df = pd.DataFrame(data)
 
     # Encode categorical variables
-    df_encoded = pd.get_dummies(df[['brand', 'jenis', 'bahan', 'harga', 'ukuran_kain']])
+    df_encoded = pd.get_dummies(
+        df[['brand', 'jenis', 'bahan', 'harga']])
     X = df_encoded
     y = df['terjual']
 
     # Bagi data menjadi training dan testing set
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42)
 
     # Latih decision tree
     clf = DecisionTreeClassifier(criterion='entropy')
@@ -33,7 +35,8 @@ def train_model():
 
     # Hitung metrik evaluasi
     accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred, average='weighted', zero_division=0)
+    precision = precision_score(
+        y_test, y_pred, average='weighted', zero_division=0)
     recall = recall_score(y_test, y_pred, average='weighted')
     f1 = f1_score(y_test, y_pred, average='weighted')
 
@@ -56,6 +59,7 @@ def train_model():
 
     return clf, X.columns
 
+
 def predict_sales(model, feature_columns, input_data):
     df_input = pd.DataFrame([input_data])
     df_input_encoded = pd.get_dummies(df_input)
@@ -68,9 +72,9 @@ def predict_sales(model, feature_columns, input_data):
 
 
 def plot_tree(model, feature_names, class_names):
-    fig = plt.figure(figsize=(20, 10)) 
+    fig = plt.figure(figsize=(34, 17), dpi=300)
     _ = tree.plot_tree(model, feature_names=feature_names, class_names=class_names,
-    filled=True, rounded=True, fontsize=10) 
+                       filled=True, rounded=True, fontsize=12)
 
     # Simpan gambar di folder static
     static_dir = os.path.join(os.path.dirname(__file__), 'static')
